@@ -12,26 +12,41 @@ struct MainView: View {
     @ObservedObject var viewModel:MainViewModel
     var body: some View {
         NavigationView {
-            VStack{
-                ForEach(Array(viewModel.jokeDict.keys), id: \.self) { category in
-                    if let value =  viewModel.jokeDict[category] {
-                        CategoryCountView(count: value.count, jokeCategory:category)
-                            .onTapGesture {
-                                appCoordinator.push(.details(category: category))
+            ZStack{
+                //Category views
+                ScrollView{
+                    LazyVStack{
+                        ForEach(Array(viewModel.jokeDict.keys), id: \.self) { category in
+                            if let value =  viewModel.jokeDict[category] {
+                                CategoryCountView(count: value.count, jokeCategory:category)
+                                    .frame(height: 80)
+                                    .onTapGesture {
+                                        appCoordinator.push(.details(category: category))
+                                    }
                             }
+                        }
                     }
-                }
-                Button(action: {
+                }.refreshable {
                     viewModel.addJoke()
-                }) {
-                    Text("+")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .padding(.vertical, 12)
-                        .padding(.horizontal, 30)
-                        .background(Color.teal)
-                        .cornerRadius(20)
                 }
+                // Button view
+                VStack{
+                    Spacer()
+                    HStack{
+                        Spacer()
+                        Button(action: {
+                            viewModel.addJoke()
+                        }) {
+                            Image(systemName: "plus")
+                                .font(.system(size: 24, weight: .bold))
+                                .foregroundColor(.white)
+                                .frame(width: 60, height: 60)
+                                .background(Color.blue)
+                                .clipShape(Circle())
+                                .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 2)
+                        }
+                    }
+                }.padding()
             }.navigationTitle("My jokes 😊")
         }
     }

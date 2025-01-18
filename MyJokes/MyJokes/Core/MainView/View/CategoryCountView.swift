@@ -21,7 +21,7 @@ struct CategoryCountView: View {
             HStack{
                 Text(jokeCategory.rawValue)
                     .font(.title)
-                Text("\(count)")
+                Text(": \(count)")
                     .font(.title)
                 
             }
