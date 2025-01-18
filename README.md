@@ -17,7 +17,7 @@ The application fetches jokes from a public Joke API, manages concurrent API req
 *   **`MVVM (Model-View-ViewModel)`:** 
     *   The primary architectural pattern for managing UI-related logic and data presentation.
 *   **`Coordinator Pattern`:**
-    *   Used for navigation management, decoupling view controllers/views and promoting a clear navigation flow.
+    *   Used for navigation management, promoting a clear navigation flow.
 *   **`WebService`:**
     *   Responsible for fetching data from the Joke API.
     *   Implements `ApiClientProtocol`.
