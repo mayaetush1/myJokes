@@ -13,9 +13,7 @@ class  DetailsViewModel : ObservableObject {
     
     @Published var sections =  [DetailsViewListSections]()
     @Published var selectedFilter: String = "All"
-    
     @Published var jokeCategory :JokeCategory
-    
     private var jokesService:JokesService
     private var cancellables: Set<AnyCancellable> = []
     @Published private(set) var filteredSections: [DetailsViewListSections] = []
@@ -26,7 +24,6 @@ class  DetailsViewModel : ObservableObject {
     
     init(jokesService: JokesService,
          jokeCategory:JokeCategory) {
-        
         self.jokesService = jokesService
         self.jokeCategory = jokeCategory
         self.setupSections()
@@ -68,7 +65,7 @@ class  DetailsViewModel : ObservableObject {
                 if filter == "political" {return joke.flags.isPolitical == true}
                 if filter == "racist" {return joke.flags.isRacist == true}
                 if filter == "sexist" {return joke.flags.isSexist == true}
-                if filter == "explicit" {return joke.flags.isSexist == true}
+                if filter == "explicit" {return joke.flags.isExplicit == true}
                 return false
             }
             return DetailsViewListSections(id: section.id, name: section.name, items: filteredItems)

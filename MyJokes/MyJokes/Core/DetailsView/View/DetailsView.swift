@@ -45,7 +45,7 @@ struct DetailsView: View {
                     }
                     
                 }
-                //Boutton view
+                //Button view
                 VStack{
                     Spacer()
                     HStack{
