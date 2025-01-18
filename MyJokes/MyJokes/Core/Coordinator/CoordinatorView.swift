@@ -15,7 +15,8 @@ struct CoordinatorView: View {
     init() {
         var config = APIConfiguration()
         let webservice = WebService(baseURL: config.environment.baseURL)
-        let jokesService = JokesService(apiService: webservice)
+        let jokesService = JokesService(apiService: webservice,
+                                        storageService: CoreDataStorageManager())
         let appCoordinator = AppCoordinator(jokesService: jokesService)
         _appCoordinator = StateObject(wrappedValue:appCoordinator)
     }

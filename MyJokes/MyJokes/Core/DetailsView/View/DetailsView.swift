@@ -43,6 +43,7 @@ struct DetailsView: View {
 #Preview {
     var config = APIConfiguration()
     let webservice = WebService(baseURL: config.environment.baseURL)
-    let jokesService = JokesService(apiService: webservice)
+    let jokesService = JokesService(apiService: webservice,
+                                    storageService: CoreDataStorageManager())
     DetailsView(viewModel:DetailsViewModel(jokesService: jokesService, jokeCategory: .christmas))
 }

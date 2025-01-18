@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23507" systemVersion="23G93" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="DBJoke" representedClassName="DBJoke" syncable="YES">
+        <attribute name="category" attributeType="String"/>
+        <attribute name="delivery" optional="YES" attributeType="String"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="isFavorite" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isSafe" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="joke" optional="YES" attributeType="String"/>
+        <attribute name="setup" optional="YES" attributeType="String"/>
+        <attribute name="type" attributeType="String"/>
+        <relationship name="flags" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DBJokeFlags" inverseName="joke" inverseEntity="DBJokeFlags"/>
     </entity>
-    <elements>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
-    </elements>
+    <entity name="DBJokeFlags" representedClassName="DBJokeFlags" syncable="YES">
+        <attribute name="isExplicit" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isNsfw" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isPolitical" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isRacist" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isReligious" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isSexist" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="joke" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DBJoke" inverseName="flags" inverseEntity="DBJoke"/>
+    </entity>
 </model>

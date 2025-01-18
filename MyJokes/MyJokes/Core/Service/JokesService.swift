@@ -18,31 +18,51 @@ class JokesService:ObservableObject{
         return dict
     }()
     
-    
     private let apiService : ApiClientProtocol
+    private let storageService : StorageManagerProtocol
     
-    init(apiService:ApiClientProtocol){
+    init(apiService:ApiClientProtocol,
+         storageService:StorageManagerProtocol){
         self.apiService = apiService
+        self.storageService = storageService
+        getJokesFromStorage()
     }
+    
+    private func getJokesFromStorage(){
+        let jokes = storageService.fetchJokes()
+        print("\(jokes)")
+        let dbDict =  Dictionary(grouping:jokes , by:{ $0.category })
+        for key in dbDict.keys{
+            jokesDict[key]?.append(contentsOf:dbDict[key,default:[AppJoke]()])
+        }
+    }
+    
+    private func addJoke(_ joke: AppJoke){
+        guard let arrayOfJokesByCategory = jokesDict[joke.category] else {return}
+        // Dont save the same joke twice
+        if arrayOfJokesByCategory.contains(where: { appJoke in
+            appJoke.id == joke.id
+        }) {return}
+        jokesDict[joke.category]?.append(joke)
+        storageService.saveJoke(joke)
+    }
+    
     
     func getJokes(category:JokeCategory) -> [AppJoke]{
         guard let jokesArray =  jokesDict[category] else {return [AppJoke]()}
         return jokesArray
     }
+    
     func addJoke() {
         Task{
             do {
                 let joke =  try await apiService.request(endpoint: JokeRequests.allJokes, responseModel: APIJoke.self)
                 addJoke(AppJoke(from: joke))
             }catch{
-                print("error")
+                print("!!!!! error from server")
             }
+            
         }
-        
-    }
-    
-    private func addJoke(_ joke: AppJoke){
-        jokesDict[joke.category]?.append(joke)
     }
     
 }
