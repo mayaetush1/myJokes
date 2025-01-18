@@ -36,7 +36,6 @@ class  DetailsViewModel : ObservableObject {
     private func setupSections(){
         // setup sections
         let arrayOfJokes = jokesService.getJokes(category: jokeCategory)
-        print("\(arrayOfJokes)")
         var sectionsArray =  [DetailsViewListSections]()
         let singleJokes = DetailsViewListSections(id: 0 ,
                                                   name:"Single Jokes",

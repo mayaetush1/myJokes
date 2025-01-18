@@ -9,6 +9,7 @@ import Foundation
 import CoreData
 
 protocol StorageManagerProtocol {
+    
     func saveJoke(_ joke: AppJoke)
     func fetchJokes() -> [AppJoke]
 }
