@@ -48,7 +48,3 @@ struct  AppJoke : Identifiable {
                   isFavorite: false)
     }
 }
-enum JokeFilters: String{
-    case
-}
-
