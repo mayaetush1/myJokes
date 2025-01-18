@@ -30,7 +30,6 @@ class JokesService:ObservableObject{
     
     private func getJokesFromStorage(){
         let jokes = storageService.fetchJokes()
-        print("\(jokes)")
         let dbDict =  Dictionary(grouping:jokes , by:{ $0.category })
         for key in dbDict.keys{
             jokesDict[key]?.append(contentsOf:dbDict[key,default:[AppJoke]()])
