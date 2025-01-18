@@ -10,7 +10,7 @@ import Combine
 
 class MainViewModel:ObservableObject{
     
-    @Published var jokeDict =  [JokeCategory:[APIJoke]]()
+    @Published var jokeDict =  [JokeCategory:[AppJoke]]()
     private var cancellables = Set<AnyCancellable>()
     
     private var jokesService:JokesService
@@ -19,8 +19,8 @@ class MainViewModel:ObservableObject{
         self.jokesService = jokesService
         jokesService.$jokesDict
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] jokeCountDict in
-                self?.jokeDict = jokeCountDict
+            .sink { [weak self] jokeDict in
+                self?.jokeDict = jokeDict
             }
             .store(in: &cancellables)
     }

@@ -10,10 +10,10 @@ import Foundation
 class JokesService:ObservableObject{
     
     
-    @Published private(set) var  jokesDict : [JokeCategory:[APIJoke]] = {
-        var dict =  [JokeCategory:[APIJoke]]()
+    @Published private(set) var  jokesDict : [JokeCategory:[AppJoke]] = {
+        var dict =  [JokeCategory:[AppJoke]]()
         for category in JokeCategory.allCases {
-            dict[category] = [APIJoke]()
+            dict[category] = [AppJoke]()
         }
         return dict
     }()
@@ -24,19 +24,24 @@ class JokesService:ObservableObject{
     init(apiService:ApiClientProtocol){
         self.apiService = apiService
     }
-
     
+    func getJokes(category:JokeCategory) -> [AppJoke]{
+        guard let jokesArray =  jokesDict[category] else {return [AppJoke]()}
+        return jokesArray
+    }
     func addJoke() {
         Task{
             do {
-           let joke =  try await apiService.request(endpoint: JokeRequests.allJokes, responseModel: APIJoke.self)
-           addJoke(joke)
+                let joke =  try await apiService.request(endpoint: JokeRequests.allJokes, responseModel: APIJoke.self)
+                addJoke(AppJoke(from: joke))
             }catch{
                 print("error")
             }
         }
+        
     }
-    func addJoke(_ joke:APIJoke){
+    
+    private func addJoke(_ joke: AppJoke){
         jokesDict[joke.category]?.append(joke)
     }
     

@@ -13,7 +13,7 @@ struct APIJoke: Codable {
     let type:JokeType
     let flags: JokeFlags
     let isSafe : Bool
-    let  joke : String?
+    let joke : String?
     let setup: String?
     let delivery: String?
     

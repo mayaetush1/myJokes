@@ -24,8 +24,8 @@ class AppCoordinator : AppCoordinatorProtocol {
     func build(_ screen: AppScreen) -> some View {
         switch screen{
         case .details(let category):
-            
-            Text("details")
+            DetailsView(viewModel: DetailsViewModel(jokesService: jokesService, jokeCategory: category))
+                .navigationTitle(category.rawValue)
         case .main:
             MainView(viewModel:MainViewModel(jokesService: jokesService))
         }
