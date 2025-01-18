@@ -41,7 +41,9 @@ class JokesService:ObservableObject{
         // Dont save the same joke twice
         if arrayOfJokesByCategory.contains(where: { appJoke in
             appJoke.id == joke.id
-        }) {return}
+        }) {
+            print("The same joke from server")
+            return}
         jokesDict[joke.category]?.append(joke)
         storageService.saveJoke(joke)
     }
@@ -56,9 +58,11 @@ class JokesService:ObservableObject{
         Task{
             do {
                 let joke =  try await apiService.request(endpoint: JokeRequests.allJokes, responseModel: APIJoke.self)
+                print("joke from server")
                 addJoke(AppJoke(from: joke))
-            }catch{
-                print("!!!!! error from server")
+                
+            }catch (let error){
+                print("!!!!! error from server \(error)")
             }
             
         }

@@ -29,13 +29,6 @@ struct JokeView: View {
                             .stroke(.teal, lineWidth: 2))
                 }
             }
-            HStack{
-                Spacer()
-                    
-                    Image(systemName: joke.isFavorite ? "heart.fill" : "heart")
-                    Text(joke.isFavorite ? "Liked" : "Like")
-               
-            }
         }
     }
 }
@@ -53,6 +46,5 @@ struct JokeView: View {
                            isSafe: true,
                            joke: nil,
                            setup: "How do you know God is a shitty programmer?",
-                           delivery: "He wrote the OS for an entire universe, but didn't leave a single useful comment",
-                           isFavorite: true))
+                           delivery: "He wrote the OS for an entire universe, but didn't leave a single useful comment"))
 }

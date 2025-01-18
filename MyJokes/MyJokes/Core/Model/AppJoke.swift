@@ -15,7 +15,6 @@ struct  AppJoke : Identifiable {
     let joke : String?
     let setup: String?
     let delivery: String?
-    var isFavorite : Bool
     
     
     init(id: Int, category: JokeCategory,
@@ -24,8 +23,7 @@ struct  AppJoke : Identifiable {
          isSafe: Bool,
          joke: String?,
          setup: String?,
-         delivery: String?,
-         isFavorite: Bool) {
+         delivery: String?) {
         self.id = id
         self.category = category
         self.type = type
@@ -34,8 +32,8 @@ struct  AppJoke : Identifiable {
         self.joke = joke
         self.setup = setup
         self.delivery = delivery
-        self.isFavorite = isFavorite
     }
+    
     init(from apiJoke:APIJoke){
         self.init(id:apiJoke.id ,
                   category: apiJoke.category,
@@ -44,7 +42,6 @@ struct  AppJoke : Identifiable {
                   isSafe: apiJoke.isSafe,
                   joke: apiJoke.joke,
                   setup: apiJoke.setup,
-                  delivery: apiJoke.delivery,
-                  isFavorite: false)
+                  delivery: apiJoke.delivery)
     }
 }

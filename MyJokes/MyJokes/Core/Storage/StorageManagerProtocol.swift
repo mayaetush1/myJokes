@@ -41,7 +41,6 @@ class CoreDataStorageManager: StorageManagerProtocol {
         dbJoke.joke = joke.joke
         dbJoke.setup = joke.setup
         dbJoke.delivery = joke.delivery
-        dbJoke.isFavorite = joke.isFavorite
         let dbFlags = DBJokeFlags(context: context)
         dbFlags.isNsfw = joke.flags.isNsfw
         dbFlags.isReligious = joke.flags.isReligious
@@ -51,6 +50,7 @@ class CoreDataStorageManager: StorageManagerProtocol {
         dbFlags.isExplicit = joke.flags.isExplicit
 
         dbJoke.flags = dbFlags
+        print("\(dbJoke)")
 
         saveContext()
     }
@@ -77,8 +77,7 @@ class CoreDataStorageManager: StorageManagerProtocol {
                                 isSafe: dbJoke.isSafe,
                                 joke: dbJoke.joke,
                                 setup: dbJoke.setup,
-                                delivery: dbJoke.delivery,
-                                isFavorite: dbJoke.isFavorite)
+                                delivery: dbJoke.delivery)
                     }
                 return nil
                 }

@@ -12,19 +12,39 @@ struct DetailsView: View {
     var body: some View {
         ScrollViewReader { proxy in
             ZStack{
-                // list view
-                List {
-                    ForEach(viewModel.jokesSection) { section in
-                        Section(header: Text(section.name).id(section.id)) {
-                            ForEach(section.items) { joke in
-                                JokeView(joke: joke)
-                                    .onTapGesture {
-                                        viewModel
-                                    }
-                            }
-                        }
+                VStack{
+                    // Picker
+                    Picker("Filter by Category", selection: $viewModel.selectedFilter) {
+                        Text("All").tag("All")
+                        Text("Nsfw").tag("nsfw")
+                        Text("Religious").tag("religious")
+                        Text("Political").tag("political")
+                        Text("Racist").tag("racist")
+                        Text("Sexist").tag("sexist")
+                        Text("Explicit").tag("explicit")
                     }
-                }.listSectionSeparator(.hidden)
+                    //Empty view
+                    if viewModel.isEmpty{
+                        Text("No jokes available😢")
+                            .font(.headline)
+                            .foregroundColor(Color.blue)
+                            .padding()
+                        Spacer()
+                    }else{
+                        // list view
+                        List {
+                            ForEach(viewModel.filteredSections) { section in
+                                Section(header: Text(section.name).id(section.id)) {
+                                    ForEach(section.items) { joke in
+                                        JokeView(joke: joke)
+                                    }
+                                }
+                            }
+                        }.listSectionSeparator(.hidden)
+                      
+                    }
+                    
+                }
                 //Boutton view
                 VStack{
                     Spacer()
