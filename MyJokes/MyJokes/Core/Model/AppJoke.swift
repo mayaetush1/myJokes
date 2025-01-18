@@ -15,7 +15,7 @@ struct  AppJoke : Identifiable {
     let joke : String?
     let setup: String?
     let delivery: String?
-    let isFavorite : Bool
+    var isFavorite : Bool
     
     
     init(id: Int, category: JokeCategory,

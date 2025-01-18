@@ -11,8 +11,7 @@ import Combine
 
 class  DetailsViewModel : ObservableObject {
     
-    var fullJokeArray : [DetailsViewListSections]
-    @Published var jokesSection : [DetailsViewListSections]
+    @Published var jokesSection =  [DetailsViewListSections]()
     
     @Published var jokeCategory :JokeCategory
     
@@ -23,16 +22,23 @@ class  DetailsViewModel : ObservableObject {
         
         self.jokesService = jokesService
         self.jokeCategory = jokeCategory
-        
+        self.setupSections()
+    }
+    
+    private func setupSections(){
+        // setup sections
         let arrayOfJokes = jokesService.getJokes(category: jokeCategory)
-        let dictByType =  Dictionary(grouping: arrayOfJokes, by: { $0.type })
-        let arrayOfKeys = Array(dictByType.keys)
         var sectionsArray =  [DetailsViewListSections]()
-        for (index,section) in arrayOfKeys.enumerated() {
-            let items = dictByType[section,default: [AppJoke]()]
-            sectionsArray.append(DetailsViewListSections(id: index, name: section.rawValue, items:items))
-        }
-        fullJokeArray = sectionsArray
+        let singleJokes = DetailsViewListSections(id: 0 ,
+                                                  name:"Single Jokes",
+                                                  items:arrayOfJokes.filter({ $0.type == .single}))
+        let twoPartsJokes = DetailsViewListSections(id: 1 ,
+                                               name:"Two Part Jokes",
+                                               items:arrayOfJokes.filter({ $0.type == .twoPart}))
+        sectionsArray.append(singleJokes)
+        sectionsArray.append(twoPartsJokes)
         jokesSection = sectionsArray
     }
+    
+   
 }

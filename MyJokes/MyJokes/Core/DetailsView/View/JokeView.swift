@@ -11,18 +11,6 @@ struct JokeView: View {
     var joke: AppJoke
     var body: some View {
         VStack{
-            HStack{
-                Spacer()
-                Button(action: {}) {
-                    
-                    Image(systemName: joke.isFavorite ? "heart.fill" : "heart")
-                    Text(joke.isFavorite ? "Liked" : "Like")
-                }.padding()
-                    .background(.blue)
-                    .foregroundStyle(.white)
-                    .clipShape(Capsule())
-                    .padding()
-            }
             Text(joke.type == .twoPart ? joke.setup ?? "": joke.joke ?? "" )
                 .fixedSize(horizontal: false, vertical: true)
                 .multilineTextAlignment(.leading)
@@ -40,6 +28,13 @@ struct JokeView: View {
                         .background(RoundedRectangle(cornerRadius: 20)
                             .stroke(.teal, lineWidth: 2))
                 }
+            }
+            HStack{
+                Spacer()
+                    
+                    Image(systemName: joke.isFavorite ? "heart.fill" : "heart")
+                    Text(joke.isFavorite ? "Liked" : "Like")
+               
             }
         }
     }

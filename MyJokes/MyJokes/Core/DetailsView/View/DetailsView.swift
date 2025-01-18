@@ -11,31 +11,41 @@ struct DetailsView: View {
     @ObservedObject var viewModel:DetailsViewModel
     var body: some View {
         ScrollViewReader { proxy in
-            VStack{
+            ZStack{
+                // list view
                 List {
                     ForEach(viewModel.jokesSection) { section in
                         Section(header: Text(section.name).id(section.id)) {
                             ForEach(section.items) { joke in
                                 JokeView(joke: joke)
+                                    .onTapGesture {
+                                        viewModel
+                                    }
                             }
                         }
                     }
+                }.listSectionSeparator(.hidden)
+                //Boutton view
+                VStack{
+                    Spacer()
+                    HStack{
+                        Spacer()
+                        Button(action: {
+                            withAnimation {
+                                proxy.scrollTo(0, anchor: .bottom)
+                            }
+                        }) {
+                            Text("Back to Top")
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(30)
+                        }
+                        .background(Color.clear)
+                        .padding()
+                    }
                 }
-                
             }
-            .listStyle(.grouped)
-            Button(action: {
-                withAnimation {
-                    proxy.scrollTo(0, anchor: .bottom)
-                }
-            }) {
-                Text("Back to Top")
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .padding()
         }
     }
 }
